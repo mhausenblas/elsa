@@ -70,6 +70,13 @@ Then, finally, we're ready to launch Spark:
 
 **Install Elsa**:
 
+    $ cd
+    $ git clone https://github.com/mhausenblas/elsa.git
+    $ cd elsa
+    $ mvn clean package
+    $ ./launch-elsa.sh
+
+Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating the app and generating the access token via the [app](https://apps.twitter.com/) interface.
 
 ### Google Compute
 
