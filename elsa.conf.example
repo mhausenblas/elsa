@@ -1,0 +1,9 @@
+deployment          = "production"
+master              = "local[*]"
+checkpoint-dir      = "file:///tmp/elsa/checkpoints"
+batch-window        = 5
+topics              = "Datacenter,DCOS,Docker,Mesos,Mesosphere,devop,microservice"
+consumer-key        = "YOUR STUFF HERE"
+consumer-secret     = "YOUR STUFF HERE"
+access-token        = "YOUR STUFF HERE"
+access-token-secret = "YOUR STUFF HERE"
