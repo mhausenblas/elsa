@@ -59,7 +59,7 @@ Now open `../spark-1.2.0/conf/spark-env.sh` in your favorite editor and add the 
 
     export MESOS_NATIVE_LIBRARY=/usr/local/lib/libmesos.so
     export SPARK_EXECUTOR_URI=file:///home/vagrant/spark-1.2.0/spark-1.2.0.tgz
-    export MASTER=mesos://localhost:5050
+    export MASTER=mesos://127.0.1.1:5050
 
 Note that if you've built Spark in a different directory (I did it in `/home/vagrant/`) then you'll have to change the setting for the `SPARK_EXECUTOR_URI` to point to the resulting `tgz` file from the previous step,  
 
@@ -68,14 +68,20 @@ Then, finally, we're ready to launch Spark:
     $ cd ..
     $ bin/spark-shell
 
+**Install Elsa**:
+
 
 ### Google Compute
 
+TBD.
+
 ### AWS EC2
+
+TBD.
 
 ## Usage
 
-TBD
+TBD.
 
 ## Notes
 
