@@ -1,9 +1,6 @@
 package spark.elsa
 
-import org.apache.log4j.{Level, Logger}
-
 import org.apache.spark.SparkConf
-import org.apache.spark.SparkContext._
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter._
 
@@ -11,15 +8,13 @@ import org.streum.configrity._
 
 object OnlineSA {
 
-
   def runAnalysis(elsaConf: Configuration): Unit = {
     // setting up the Spark configuration:
     val conf = new SparkConf().setAppName("ElSA Online").setMaster(elsaConf[String]("master"))
     // setting up topics:
     val topics: Array[String] = elsaConf[String]("topics").split(",").distinct
     // setting up the streaming context:
-    val ssc = new StreamingContext(conf, Seconds(elsaConf[Int]("batch-window"))) // batch size
-
+    val ssc = new StreamingContext(conf, Seconds(elsaConf[Int]("batch-window")))
 
     // setting up system properties so that Twitter4j library can use them to generate OAuth credentials:
     System.setProperty("twitter4j.oauth.consumerKey", elsaConf[String]("consumer-key"))
@@ -27,7 +22,7 @@ object OnlineSA {
     System.setProperty("twitter4j.oauth.accessToken", elsaConf[String]("access-token"))
     System.setProperty("twitter4j.oauth.accessTokenSecret", elsaConf[String]("access-token-secret"))
 
-    // hook into the Twitter firehose and get tweets with the topics of interest
+    // hook into the Twitter firehose and get tweets with the topics of interest:
     val twitterFirehose = TwitterUtils.createStream(ssc, None, topics)
 
     twitterFirehose.foreachRDD(rdd => {

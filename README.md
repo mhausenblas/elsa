@@ -16,6 +16,59 @@ The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based app that
 
 ### Single node
 
+In the following, an Ubuntu 14.04 environment is assumed.
+
+**Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site.
+
+**Install Spark**:
+
+First we download the Spark source and make sure Java env is set up correctly:
+
+    $ cd
+    $ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.0.tgz
+    $ tar xzf spark-1.2.0.tgz && cd spark-1.2.0/
+    $ sudo apt-get install default-jdk
+    $ export JAVA_HOME=$(readlink -f /usr/bin/javac | sed "s:bin/javac::")
+
+Now make sure the correct version of Maven (3.0.4 or higher) is available:
+
+    $ sudo apt-get update
+    $ sudo apt-get install maven
+    $ mvn -version
+    Apache Maven 3.0.5
+    Maven home: /usr/share/maven
+    Java version: 1.7.0_65, vendor: Oracle Corporation
+    Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
+    Default locale: en_US, platform encoding: UTF-8
+    OS name: "linux", version: "3.13.0-24-generic", arch: "amd64", family: "unix"
+
+OK, ready to build Spark. Note: right now is a good time to get a cup of tea or coffee, whatever floats your boat. As usual, Maven is downloading half of the Internet for the following and that might take, um, a while:
+
+    $ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
+    $ mvn -DskipTests clean package
+
+So, here we are. Next we package our newly built Spark distribution for the Mesos slaves to use:
+
+    $ ./make-distribution.sh
+    $ mv dist spark-1.2.0
+    $ tar czf spark-1.2.0.tgz spark-1.2.0/
+    $ cd conf/
+    $ cp spark-env.sh.template spark-env.sh
+
+Now open `../spark-1.2.0/conf/spark-env.sh` in your favorite editor and add the following at the end of the file:
+
+    export MESOS_NATIVE_LIBRARY=/usr/local/lib/libmesos.so
+    export SPARK_EXECUTOR_URI=file:///home/vagrant/spark-1.2.0/spark-1.2.0.tgz
+    export MASTER=mesos://localhost:5050
+
+Note that if you've built Spark in a different directory (I did it in `/home/vagrant/`) then you'll have to change the setting for the `SPARK_EXECUTOR_URI` to point to the resulting `tgz` file from the previous step,  
+
+Then, finally, we're ready to launch Spark:
+
+    $ cd ..
+    $ bin/spark-shell
+
+
 ### Google Compute
 
 ### AWS EC2
@@ -26,6 +79,8 @@ TBD
 
 ## Notes
 
-Apologies to all [Frozen](http://www.imdb.com/title/tt2294629/) fans, especially our kids, for hijacking the Elsa label in this context. I thought it's funny … 
-
 Kudos to the Spark team for providing [the basis](https://github.com/apache/spark/blob/master/examples/src/main/scala/org/apache/spark/examples/streaming/TwitterPopularTags.scala) for the SA part and to Alexandre Rodrigues for helping me out concerning the initial development.
+
+If you want to learn how to run Spark on Mesos, I suggest you try out the great [step-by-step tutorial](https://mesosphere.com/docs/tutorials/run-spark-on-mesos/) provided by the Mesosphere folks.
+
+Lastly, apologies to all [Frozen](http://www.imdb.com/title/tt2294629/) fans, especially our kids, for hijacking the Elsa label in this context. I thought it's funny … 
