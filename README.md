@@ -23,3 +23,7 @@ TBD
 ## Usage
 
 TBD
+
+## Notes
+
+Apologies to all [Frozen](http://www.imdb.com/title/tt2294629/) fans, especially our kids, for hijacking the Elsa lable in this context. I thought it's funny … 
