@@ -100,12 +100,11 @@ TBD.
 
 Assuming you've installed Mesos, Marathon and Spark as described above, you should now be in the position to launch ElSA as described below.
 
-
-### Manually launching ElSA
-
-
 Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating a Twitter application and generating the access token via the [app](https://apps.twitter.com/) interface.
 
+### Launching ElSA manually
+
+To launch ElSA manually, do the following:
 
     $ cd elsa
     $ ./launch-elsa.sh
@@ -126,6 +125,17 @@ Note: in order for ElSA to run you'll need to supply your Twitter credentials, t
     ===
     RT @DockerParis: .@frazelledazzell on how she runs all her desktop apps in containers and with -rm! #docker #dockermeetup http://t.co/aBYx0…
     ===    
+
+## Launching Elsa through Marathon
+
+To launch ElSA through Marathon and let is scale up and down as traffic on the specified topics is detected, do the following:
+
+    $ cd elsa
+    $ ./autoscale.py http://localhost:8080
+
+You should then see something like the following in [Marathon](http://10.141.141.10:8080/):
+
+![ElSA Marathon deployment](doc/elsa-marathon-deploy.png)
 
 ## To do
 
