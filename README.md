@@ -12,7 +12,9 @@ ElSA achieves its goal in the following way:
 
 ## Dependencies
 
+* Deploy instructions are for Ubuntu 14.04 (and only tested there for now)
 * Apache [Mesos 0.21.x](http://archive.apache.org/dist/mesos/0.21.0/) with [Marathon 0.7.6](https://github.com/mesosphere/marathon/releases/tag/v0.7.6)
+* [marathon-python](https://github.com/thefactory/marathon-python)
 * Apache [Spark 1.2.x](https://spark.apache.org/downloads.html)
 * A Twitter account and an [app](https://apps.twitter.com/) that can be used for accessing the Twitter firehose
 
