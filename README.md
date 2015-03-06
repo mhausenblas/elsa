@@ -1,7 +1,7 @@
 # Elastic Sentiment Analysis
 
 |                  | ElSA                                                       |
-| ---------------- |:---------------------------------------------------------:|
+| ---------------- | --------------------------------------------------------- |
 | ![https://www.flickr.com/photos/tsevis/8596935889/](doc/sa-logo.jpg) | The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based application that leverages the Mesos stack (esp. Marathon) to derive a public opinion on topics on Twitter. It is able to elastically scale its processing capacity, based on the volume of the traffic concerning said topics. |
 
 ElSA achieves its goal in the following way:
@@ -54,8 +54,6 @@ Now make sure the correct version of Maven (3.0.4 or higher) is available:
     Maven home: /usr/share/maven
     Java version: 1.7.0_65, vendor: Oracle Corporation
     Java home: /usr/lib/jvm/java-7-openjdk-amd64/jre
-    Default locale: en_US, platform encoding: UTF-8
-    OS name: "linux", version: "3.13.0-24-generic", arch: "amd64", family: "unix"
 
 OK, ready to build Spark. Note: right now is a good time to get a cup of tea or coffee, whatever floats your boat. As usual, Maven is downloading half of the Internet for the following and that might take, um, a while:
 

@@ -18,3 +18,7 @@ project/plugins/project/
 .worksheet
 .idea/
 *.iml
+
+# Python
+__pycache__/
+*.py[cod]
