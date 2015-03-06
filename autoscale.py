@@ -4,7 +4,12 @@ Launches ElSA app using Marathon and scales it depending of topic traffic.
 
 Usage: 
      
-  ` ./autoscale.py http://localhost:8080`
+    ./autoscale.py $MARATHON_URL
+
+Example: 
+     
+    ./autoscale.py http://localhost:8080
+
 
 @author: Michael Hausenblas, http://mhausenblas.info/#i
 @since: 2015-03-06
