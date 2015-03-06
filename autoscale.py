@@ -48,5 +48,5 @@ if __name__ == '__main__':
         marathon = sys.argv[1] # Marathon URL to use
         launch_elsa(marathon)
     except Exception, e:
-        logging.error(e)
+        print(__doc__)
         sys.exit(2)
