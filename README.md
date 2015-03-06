@@ -1,8 +1,8 @@
 # Elastic Sentiment Analysis
 
-|: ElSA                                                                            :|
-| ---------------- | ------------------------------------------------------------- |
-| ![https://www.flickr.com/photos/tsevis/8596935889/](doc/sa-logo.jpg)| The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based application that leverages the Mesos stack (esp. Marathon) to derive a public opinion on topics on Twitter. It is able to elastically scale its processing capacity, based on the volume of the traffic concerning said topics. |
+|                  |: ElSA                                                    :|
+| ---------------- | --------------------------------------------------------- |
+| ![https://www.flickr.com/photos/tsevis/8596935889/](doc/sa-logo.jpg) | The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based application that leverages the Mesos stack (esp. Marathon) to derive a public opinion on topics on Twitter. It is able to elastically scale its processing capacity, based on the volume of the traffic concerning said topics. |
 
 ElSA achieves its goal in the following way:
 
