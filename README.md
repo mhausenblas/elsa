@@ -14,11 +14,22 @@ The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based app that
 
 ## Deployment
 
-### Single node
-
 In the following, an Ubuntu 14.04 environment is assumed.
 
-**Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site.
+### Prerequisites 
+
+For Python packages we need `pip` so before anything else do:
+
+     $ sudo apt-get install python-pip
+
+### Single node
+
+
+**Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) which contains an Marathon installation or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site and install Marathon on top of it.
+
+Further, as a preparation for the ElSA app, we need a [Python package](https://github.com/thefactory/marathon-python) wrapping the Marathon [REST API](https://mesosphere.github.io/marathon/docs/rest-api.html) so let's do that right away:
+
+    $ pip install marathon
 
 **Install Spark**:
 
@@ -74,9 +85,6 @@ Then, finally, we're ready to launch Spark:
     $ git clone https://github.com/mhausenblas/elsa.git
     $ cd elsa
     $ mvn clean package
-    $ ./launch-elsa.sh
-
-Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating the app and generating the access token via the [app](https://apps.twitter.com/) interface.
 
 ### Google Compute
 
@@ -88,7 +96,43 @@ TBD.
 
 ## Usage
 
-TBD.
+Assuming you've installed Mesos, Marathon and Spark as described above, you should now be in the position to launch ElSA as described below.
+
+
+### Manually launching ElSA
+
+
+Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating a Twitter application and generating the access token via the [app](https://apps.twitter.com/) interface.
+
+
+    $ cd elsa
+    $ ./launch-elsa.sh
+    Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+    15/03/06 19:02:32 INFO ElsaHelper: Setting log level to [ERROR].
+    
+    In the past 5 seconds I found 0 tweet(s) containing your topics:
+    Datacenter DCOS Docker Mesos Mesosphere devop microservice
+    
+    In the past 5 seconds I found 1 tweet(s) containing your topics:
+    Datacenter DCOS Docker Mesos Mesosphere devop microservice
+    ===
+    RT @SoftLayer: Let’s talk software, specifically how to create a private @Docker registry on SoftLayer. ≡ http://t.co/UVpX1Anl4s http://t.c…
+    ===
+    
+    In the past 5 seconds I found 1 tweet(s) containing your topics:
+    Datacenter DCOS Docker Mesos Mesosphere devop microservice
+    ===
+    RT @DockerParis: .@frazelledazzell on how she runs all her desktop apps in containers and with -rm! #docker #dockermeetup http://t.co/aBYx0…
+    ===    
+
+## To do
+
+- [x] Core business logic 
+- [x] Single node deployment and launch
+- [ ] Single node elastic
+- [ ] Cluster deployment (GCE and EC2)
+- [ ] Improve SA incl. visualization (d3)
+- [ ] Video walkthrough
 
 ## Notes
 
