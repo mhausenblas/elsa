@@ -37,6 +37,8 @@ else:
   FORMAT = '%(asctime)-0s %(message)s'
   logging.basicConfig(level=logging.INFO, format=FORMAT, datefmt='%Y-%m-%dT%I:%M:%S')
 
+
+# TBD: read all below values from config file on start-up, overriding defaults:
 TRAFFIC_INCREASE_THRESHOLD = 6 # difference between previous and current traffic
 SCALE_FACTOR = 2  # part of threshold number of instances should be scaled
 

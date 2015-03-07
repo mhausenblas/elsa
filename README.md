@@ -143,7 +143,8 @@ You should then see something like the following in [Marathon](http://10.141.141
 
 - [x] Core business logic 
 - [x] Single node deployment and launch
-- [ ] Single node elastic
+- [x] Single node elastic
+- [ ] Make all auto-scale parameter configurable via config
 - [ ] Cluster deployment (GCE and EC2)
 - [ ] Improve SA incl. visualization (d3)
 - [ ] Video walkthrough
