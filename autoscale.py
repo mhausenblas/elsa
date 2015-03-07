@@ -81,8 +81,9 @@ def launch_elsa(marathon, stats_file):
     c.create_app('elsa', MarathonApp(cmd='/home/vagrant/elsa/launch-elsa.sh', mem=200, cpus=1, user='vagrant'))
     # c.list_apps()
     
-     time.sleep(3) # allow time to deploy before autoscaling sets in
-
+    print('ElSA is deployed and running, waiting now 5 sec before starting auto-scale ...')
+    time.sleep(5) # allow time to deploy before autoscaling sets in
+    
     # kick off traffic monitoring and trigger autoscaling:
     previous_topic_traffic = 0
     while True:
