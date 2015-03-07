@@ -144,10 +144,10 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Core business logic 
 - [x] Single node deployment and launch
 - [x] Single node elastic
-- [ ] Make all auto-scale parameter configurable via config
-- [ ] Cluster deployment (GCE and EC2)
-- [ ] Improve SA incl. visualization (d3)
+- [x] Make all auto-scale parameter configurable via config
+- [ ] Improve SA (positive negative neutral)
 - [ ] Video walkthrough
+- [ ] Cluster deployment (GCE and EC2)
 
 ## Notes
 
