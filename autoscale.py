@@ -37,6 +37,17 @@ else:
   FORMAT = '%(asctime)-0s %(message)s'
   logging.basicConfig(level=logging.INFO, format=FORMAT, datefmt='%Y-%m-%dT%I:%M:%S')
 
+TRAFFIC_INCREASE_THRESHOLD = 10 # difference between previous and current traffic
+SCALE_FACTOR = 10  # part of threshold number of instances should be scaled
+
+################################################################################
+# Scaling example:
+#
+# If TRAFFIC_INCREASE_THRESHOLD == 10 and SCALE_FACTOR == 10 and there has been
+# a traffic increase of 25, then this means that (because 25 > 10) the number of
+# instances will be increased by a factor of int(25/10) == 2, that is doubled.
+
+
 ################################################################################
 # Helper
 #
@@ -75,8 +86,22 @@ def launch_elsa(marathon, stats_file):
     while True:
         with open(stats_file, 'r') as elsa_file:
             topic_traffic = int(elsa_file.read())
-            print('Difference in traffic since last period: %d' %(topic_traffic - previous_topic_traffic))
+            topic_traffic_diff = topic_traffic - previous_topic_traffic
+            print('Difference in traffic since last period: %d' %(topic_traffic_diff))
             previous_topic_traffic = topic_traffic
+            
+            current_instance_num = c.get_app('elsa').instances
+            
+            if topic_traffic_diff > TRAFFIC_INCREASE_THRESHOLD: # we see a surge of traffic above threshold ...
+                instance_multiplier = int(topic_traffic_diff / SCALE_FACTOR) # ... increase number of instances
+                c.scale_app('elsa', current_instance_num * instance_multiplier )
+            else if topic_traffic_diff < 0: # negative, back off exponentially 
+                target_instance_num = int(current_instance_num/2)
+                if target_instance_num > 1:
+                    c.scale_app('elsa', target_instance_num)
+                else
+                    c.scale_app('elsa', 1)
+            
         time.sleep(6) # TBD: read 'batch-window' from conf and make slightly higher, hard coded for now
 
 ################################################################################
