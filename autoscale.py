@@ -51,7 +51,7 @@ def get_stats_file(elsa_config):
             if l and not l.startswith('#'): # not empty or comment line
                 cfg_param = line.split('=')[0].rstrip() # extract config parameter
                 if cfg_param == 'stats-file':
-                    stats_file_path = line.split('=')[1].strip()
+                    stats_file_path = line.split('=')[1].strip().translate(None, '"')
     else:
         logging.info('No config file provided.')
     logging.debug('[%s]' %(stats_file_path))
@@ -63,17 +63,19 @@ def launch_elsa(marathon, stats_file):
     if not os.path.exists(stats_file):
         open(stats_file, 'w').close()
     
+    # launch the Elsa app via Marathon
     c = MarathonClient(marathon)
     c.create_app('elsa', MarathonApp(cmd='/home/vagrant/elsa/launch-elsa.sh', mem=200, cpus=1, user='vagrant'))
     # c.list_apps()
 
+    # kick off traffic monitoring:
     previous_topic_traffic = 0
     while True:
-        with open (stats_file, 'r') as elsa_file:
+        with open(stats_file, 'r') as elsa_file:
             topic_traffic = int(elsa_file.read())
             print('Difference in traffic since last period: %d' %(topic_traffic - previous_topic_traffic))
             previous_topic_traffic = topic_traffic
-        sleep(6) # TBD: read 'batch-window' from conf and make slightly higher, hard coded for now
+        time.sleep(6) # TBD: read 'batch-window' from conf and make slightly higher, hard coded for now
 
 ################################################################################
 # Main script
@@ -85,5 +87,6 @@ if __name__ == '__main__':
         print('Using %s to monitor topic traffic' %(stats_file))
         launch_elsa(marathon, stats_file)
     except Exception, e:
+        print(e)
         print(__doc__)
         sys.exit(2)
