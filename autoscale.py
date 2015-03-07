@@ -50,7 +50,8 @@ def get_stats_file(elsa_config):
             l = str(line).strip()
             if l and not l.startswith('#'): # not empty or comment line
                 cfg_param = line.split('=')[0].rstrip() # extract config parameter
-                stats_file_path = line.split('=')[1].strip()
+                if stats-file == 'stats-file':
+                    stats_file_path = line.split('=')[1].strip()
     else:
         logging.info('No config file provided.')
     stats_file_path
@@ -67,6 +68,7 @@ if __name__ == '__main__':
     try:
         marathon = sys.argv[1] # Marathon URL to use
         stats_file = get_stats_file(sys.argv[2]) # ElSA config file to use
+        print 'Using %s to monitor topic traffic' %(stats_file)
         launch_elsa(marathon, stats_file)
     except Exception, e:
         print(__doc__)
