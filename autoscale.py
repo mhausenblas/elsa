@@ -40,7 +40,21 @@ else:
 # Helper
 #
 
-def launch_elsa(marathon):
+def get_stats_file(elsa_config):
+    stats_file_path = ''
+    if os.path.exists(elsa_config):
+        logging.info('Using %s as config file' %(elsa_config))
+        lines = tuple(open(elsa_config, 'r'))
+        for line in lines:
+            l = str(line).strip()
+            if l and not l.startswith('#'): # not empty or comment line
+                cfg_param = line.split('=')[0].rstrip() # extract config parameter
+                stats_file_path = line.split('=')[1].strip()
+    else:
+        logging.info('No config file provided.')
+    stats_file_path
+
+def launch_elsa(marathon, stats_file):
     c = MarathonClient(marathon)
     c.create_app('elsa', MarathonApp(cmd='/home/vagrant/elsa/launch-elsa.sh', mem=200, cpus=1, user='vagrant'))
     c.list_apps()
@@ -51,7 +65,8 @@ def launch_elsa(marathon):
 if __name__ == '__main__':
     try:
         marathon = sys.argv[1] # Marathon URL to use
-        launch_elsa(marathon)
+        stats_file = get_stats_file(sys.argv[2]) # ElSA config file to use
+        launch_elsa(marathon, stats_file)
     except Exception, e:
         print(__doc__)
         sys.exit(2)
