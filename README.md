@@ -106,7 +106,7 @@ Note: in order for ElSA to run you'll need to supply your Twitter credentials, t
 
 ### Launching ElSA manually
 
-To launch ElSA manually, do the following:
+To launch ElSA manually (without elasticity, directly on Mesos), do the following:
 
     $ cd elsa
     $ ./launch-elsa.sh
@@ -130,10 +130,21 @@ To launch ElSA manually, do the following:
 
 ## Launching Elsa through Marathon
 
-To launch ElSA through Marathon and let is scale up and down as traffic on the specified topics is detected, do the following:
+To launch the ElSA app (through Marathon) and automatically scale the number of instances used, depending on the increase/decrease of traffic detected for the specified topics, do the following (hint: stop app by hitting `CTRL+C`):
 
     $ cd elsa
-    $ ./autoscale.py http://localhost:8080
+    $ ./autoscale.py http://localhost:8080 elsa.conf
+    Using /tmp/elsa/stats to monitor topic traffic
+    Using traffic increase threshold of 10 and scale factor 5
+    ElSA is deployed and running, waiting now 5 sec before starting auto-scale ...
+    Difference in traffic in the past 10 seconds: 9
+    Difference in traffic in the past 10 seconds: -9
+    Resetting number of instances to 1
+    Difference in traffic in the past 10 seconds: 11
+    Increasing number of instances to 2
+    Difference in traffic in the past 10 seconds: -14
+    Resetting number of instances to 1
+    ^CElSA has been stopped by user, halting app and rolling back deployment. Thanks and bye!
 
 You should then see something like the following in [Marathon](http://10.141.141.10:8080/):
 
