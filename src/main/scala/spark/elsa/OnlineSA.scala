@@ -27,36 +27,49 @@ object OnlineSA {
     System.setProperty("twitter4j.oauth.accessToken", elsaConf[String]("access-token"))
     System.setProperty("twitter4j.oauth.accessTokenSecret", elsaConf[String]("access-token-secret"))
 
+    // sentiment triggers:
+    val posSen: Array[String] = Array("like", "cool", "awesome", "nice", "good", "love")
+    val negSen: Array[String] = Array("dislike", "meh", "bad", "sad", "hate", "mad")
+
     // hook into the Twitter firehose and get tweets with the topics of interest:
     val twitterFirehose = TwitterUtils.createStream(ssc, None, topics)
+    var posSenTweets = 0
+    var negSenTweets = 0
 
     twitterFirehose.foreachRDD(rdd => {
       val tweetCount = rdd.count()
-      println("\n\nIn the past " + elsaConf[Int]("batch-window")  + " seconds " +
+
+      // overall stats:
+      print("\n\nIn the past " + elsaConf[Int]("batch-window")  + " seconds " +
               "I found " + tweetCount + " tweet(s) " +
               "containing your topics: "
       )
       for (topic <- topics) print(topic + " ")
+
+      // display tweet details and determine sentiment
       rdd.foreach{ tweet =>
-        println("\n===")
-        println(tweet.getText)
-        println("===")
+        val tweetText = "this is good"//tweet.getText.toLowerCase // normalize for comparison with sentiments
+
+        // here comes the *very* simplistic sentiment analysis (just check if certain words are present):
+        tweetText.split(" ").foreach{ word =>
+          print(word + " | " )
+          if ( posSen contains word ) { posSenTweets += 1 }
+          if ( negSen contains word ) { negSenTweets += 1 }
+        }
+        println("\n===" + tweetText + "\n===")
       }
-      // write out the stats:
+
+      // provide sentiment summary
+      println("\n**********************")
+      println(posSenTweets + "  :)\n" + negSenTweets + "  :(")
+
+
+      // write out the tweet count as primary input for the auto-scale process:
       Files.write(Paths.get(stats), tweetCount.toString.getBytes(StandardCharsets.UTF_8))
     })
 
-    //    val tweets = twitterFirehose.flatMap(status => status.getText.split(" "))
-    //
-    //    val tweetsAggregate = tweets.map((_, 1)).reduceByWindow( (a, b) => (a._1, a._2 + b._2) , Seconds(elsaConf[Int]("batch-window")) * 3, Seconds(elsaConf[Int]("batch-window")) * 3)
-    //
-    //    tweetsAggregate.foreachRDD(rdd => {
-    //      println("Topics in last %d seconds (%s total):".format(elsaConf[Int]("batch-window") * 3, rdd.count()))
-    //      rdd.foreach{case (count, tag) => println("%s (%s tweets)".format(tag, count))}
-    //    })
-
     // kick off the ongoing stream processing:
-    ssc.checkpoint(elsaConf[String]("checkpoint-dir"))
+    //ssc.checkpoint(elsaConf[String]("checkpoint-dir"))
     ssc.start()
     ssc.awaitTermination()
   }
