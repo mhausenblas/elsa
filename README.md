@@ -113,20 +113,12 @@ To launch ElSA manually (without elasticity, directly on Mesos), do the followin
     Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
     15/03/06 19:02:32 INFO ElsaHelper: Setting log level to [ERROR].
     
-    In the past 5 seconds I found 0 tweet(s) containing your topics:
-    Datacenter DCOS Docker Mesos Mesosphere devop microservice
+    In the past 5 seconds I found 0 tweet(s) containing your topics: Datacenter DCOS Docker Mesos Mesosphere devop microservice
     
-    In the past 5 seconds I found 1 tweet(s) containing your topics:
-    Datacenter DCOS Docker Mesos Mesosphere devop microservice
+    In the past 5 seconds I found 1 tweet(s) containing your topics: Datacenter DCOS Docker Mesos Mesosphere devop microservice
     ===
     RT @SoftLayer: Let’s talk software, specifically how to create a private @Docker registry on SoftLayer. ≡ http://t.co/UVpX1Anl4s http://t.c…
     ===
-    
-    In the past 5 seconds I found 1 tweet(s) containing your topics:
-    Datacenter DCOS Docker Mesos Mesosphere devop microservice
-    ===
-    RT @DockerParis: .@frazelledazzell on how she runs all her desktop apps in containers and with -rm! #docker #dockermeetup http://t.co/aBYx0…
-    ===    
 
 ## Launching Elsa through Marathon
 
@@ -156,7 +148,7 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Single node deployment and launch
 - [x] Single node elastic
 - [x] Make all auto-scale parameter configurable via config
-- [ ] Improve SA (positive negative neutral)
+- [x] Improve SA (positive negative)
 - [ ] Video walkthrough
 - [ ] Cluster deployment (GCE and EC2)
 

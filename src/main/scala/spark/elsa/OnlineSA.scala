@@ -12,6 +12,7 @@ import org.streum.configrity._
 object OnlineSA {
 
   def runAnalysis(elsaConf: Configuration): Unit = {
+
     // setting up the Spark configuration:
     val conf = new SparkConf().setAppName("ElSA Online").setMaster(elsaConf[String]("master"))
     // setting up the filename where to log the stats to:
@@ -33,8 +34,7 @@ object OnlineSA {
 
     // hook into the Twitter firehose and get tweets with the topics of interest:
     val twitterFirehose = TwitterUtils.createStream(ssc, None, topics)
-    var posSenTweets = 0
-    var negSenTweets = 0
+
 
     twitterFirehose.foreachRDD(rdd => {
       val tweetCount = rdd.count()
@@ -45,24 +45,18 @@ object OnlineSA {
               "containing your topics: "
       )
       for (topic <- topics) print(topic + " ")
+      println("\n**********************")
 
       // display tweet details and determine sentiment
       rdd.foreach{ tweet =>
-        val tweetText = "this is good"//tweet.getText.toLowerCase // normalize for comparison with sentiments
+        val tweetText = tweet.getText.toLowerCase // normalize for comparison with sentiments
+
+        println("\n===\n" + tweetText + "\n===")
 
         // here comes the *very* simplistic sentiment analysis (just check if certain words are present):
-        tweetText.split(" ").foreach{ word =>
-          print(word + " | " )
-          if ( posSen contains word ) { posSenTweets += 1 }
-          if ( negSen contains word ) { negSenTweets += 1 }
-        }
-        println("\n===" + tweetText + "\n===")
+        if ( posSen.exists(tweetText.contains) ) { print("SA: positive sentiment") }
+        if ( negSen.exists(tweetText.contains) ) { print("SA: negative sentiment") }
       }
-
-      // provide sentiment summary
-      println("\n**********************")
-      println(posSenTweets + "  :)\n" + negSenTweets + "  :(")
-
 
       // write out the tweet count as primary input for the auto-scale process:
       Files.write(Paths.get(stats), tweetCount.toString.getBytes(StandardCharsets.UTF_8))
