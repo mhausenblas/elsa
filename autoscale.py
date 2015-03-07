@@ -80,8 +80,10 @@ def launch_elsa(marathon, stats_file):
     c = MarathonClient(marathon)
     c.create_app('elsa', MarathonApp(cmd='/home/vagrant/elsa/launch-elsa.sh', mem=200, cpus=1, user='vagrant'))
     # c.list_apps()
+    
+     time.sleep(3) # allow time to deploy before autoscaling sets in
 
-    # kick off traffic monitoring:
+    # kick off traffic monitoring and trigger autoscaling:
     previous_topic_traffic = 0
     while True:
         with open(stats_file, 'r') as elsa_file:
@@ -94,13 +96,16 @@ def launch_elsa(marathon, stats_file):
             
             if topic_traffic_diff > TRAFFIC_INCREASE_THRESHOLD: # we see a surge of traffic above threshold ...
                 instance_multiplier = int(topic_traffic_diff / SCALE_FACTOR) # ... increase number of instances
-                c.scale_app('elsa', current_instance_num * instance_multiplier )
+                c.scale_app('elsa', current_instance_num * instance_multiplier)
+                print('Increasing number of instances to %d' %(current_instance_num * instance_multiplier))
             elif topic_traffic_diff < 0: # negative, back off exponentially 
                 target_instance_num = int(current_instance_num/2)
                 if target_instance_num > 1:
                     c.scale_app('elsa', target_instance_num)
+                    print('Decreasing number of instances to %d' %(target_instance_num))
                 else:
                     c.scale_app('elsa', 1)
+                    print('Resetting number of instances to 1')
             
         time.sleep(6) # TBD: read 'batch-window' from conf and make slightly higher, hard coded for now
 
