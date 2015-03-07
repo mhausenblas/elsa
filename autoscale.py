@@ -4,11 +4,11 @@ Launches ElSA app using Marathon and scales it depending of topic traffic.
 
 Usage: 
      
-    ./autoscale.py $MARATHON_URL
+    ./autoscale.py $MARATHON_URL $ELSA_CONFIG_FILE
 
 Example: 
      
-    ./autoscale.py http://localhost:8080
+    ./autoscale.py http://localhost:8080 ./elsa.conf
 
 
 @author: Michael Hausenblas, http://mhausenblas.info/#i
@@ -17,6 +17,7 @@ Example:
 """
 
 import logging
+import os
 import sys
 import time
 
