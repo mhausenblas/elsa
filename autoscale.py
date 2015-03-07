@@ -59,9 +59,11 @@ def get_stats_file(elsa_config):
 
 def launch_elsa(marathon, stats_file):
     logging.info('Start monitoring the inbound traffic on topics using %s' %(stats_file))
-    # make sure the stats file is created:
+    # make sure the stats file is properly initialized:
     if not os.path.exists(stats_file):
-        open(stats_file, 'w').close()
+        f = open(stats_file, 'w')
+        f.write('0')
+        f.close()
     
     # launch the Elsa app via Marathon
     c = MarathonClient(marathon)
