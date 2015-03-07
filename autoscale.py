@@ -50,7 +50,7 @@ def get_stats_file(elsa_config):
             l = str(line).strip()
             if l and not l.startswith('#'): # not empty or comment line
                 cfg_param = line.split('=')[0].rstrip() # extract config parameter
-                if stats-file == 'stats-file':
+                if cfg_param == 'stats-file':
                     stats_file_path = line.split('=')[1].strip()
     else:
         logging.info('No config file provided.')
