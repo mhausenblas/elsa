@@ -124,7 +124,7 @@ if __name__ == '__main__':
     try:
         marathon = sys.argv[1] # Marathon URL to use
         (stats_file_path, batch_window, traffic_increase_threshold, scale_factor) = get_config_params(sys.argv[2])
-        print('Using %s to monitor topic traffic' %(stats_file))
+        print('Using %s to monitor topic traffic' %(stats_file_path))
         if traffic_increase_threshold:
             TRAFFIC_INCREASE_THRESHOLD = traffic_increase_threshold
         if scale_factor:
