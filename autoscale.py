@@ -95,7 +95,7 @@ def launch_elsa(marathon, stats_file):
             if topic_traffic_diff > TRAFFIC_INCREASE_THRESHOLD: # we see a surge of traffic above threshold ...
                 instance_multiplier = int(topic_traffic_diff / SCALE_FACTOR) # ... increase number of instances
                 c.scale_app('elsa', current_instance_num * instance_multiplier )
-            else if topic_traffic_diff < 0: # negative, back off exponentially 
+            elif topic_traffic_diff < 0: # negative, back off exponentially 
                 target_instance_num = int(current_instance_num/2)
                 if target_instance_num > 1:
                     c.scale_app('elsa', target_instance_num)
