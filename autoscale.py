@@ -98,7 +98,7 @@ def launch_elsa(marathon, stats_file, scale_window):
         with open(stats_file, 'r') as elsa_file:
             topic_traffic = int(elsa_file.read())
             topic_traffic_diff = topic_traffic - previous_topic_traffic
-            print('Difference in traffic in last period: %d' %(topic_traffic_diff))
+            print('Difference in traffic in the past %d seconds: %d' %(scale_window, topic_traffic_diff))
             previous_topic_traffic = topic_traffic
             
             current_instance_num = c.get_app('elsa').instances
