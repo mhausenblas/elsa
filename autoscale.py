@@ -76,6 +76,7 @@ def get_config_params(elsa_config):
     logging.debug('[%s]' %(stats_file_path))
     return (stats_file_path, batch_window, traffic_increase_threshold, scale_factor)
 
+
 def launch_elsa(marathon, stats_file, scale_window):
     logging.info('Start monitoring the inbound traffic on topics using %s' %(stats_file))
     # make sure the stats file is properly initialized:
@@ -94,28 +95,32 @@ def launch_elsa(marathon, stats_file, scale_window):
     
     # kick off traffic monitoring and trigger autoscaling:
     previous_topic_traffic = 0
-    while True:
-        with open(stats_file, 'r') as elsa_file:
-            topic_traffic = int(elsa_file.read())
-            topic_traffic_diff = topic_traffic - previous_topic_traffic
-            print('Difference in traffic in the past %d seconds: %d' %(scale_window, topic_traffic_diff))
-            previous_topic_traffic = topic_traffic
+    try:
+        while True:
+            with open(stats_file, 'r') as elsa_file:
+                topic_traffic = int(elsa_file.read())
+                topic_traffic_diff = topic_traffic - previous_topic_traffic
+                print('Difference in traffic in the past %d seconds: %d' %(scale_window, topic_traffic_diff))
+                previous_topic_traffic = topic_traffic
             
-            current_instance_num = c.get_app('elsa').instances
+                current_instance_num = c.get_app('elsa').instances
             
-            if topic_traffic_diff > TRAFFIC_INCREASE_THRESHOLD: # we see a surge of traffic above threshold ...
-                instance_multiplier = int(topic_traffic_diff / SCALE_FACTOR) # ... increase number of instances
-                c.scale_app('elsa', current_instance_num * instance_multiplier)
-                print('Increasing number of instances to %d' %(current_instance_num * instance_multiplier))
-            elif topic_traffic_diff < 0: # negative, back off exponentially 
-                target_instance_num = int(current_instance_num/2)
-                if target_instance_num > 1:
-                    c.scale_app('elsa', target_instance_num)
-                    print('Decreasing number of instances to %d' %(target_instance_num))
-                else:
-                    c.scale_app('elsa', 1)
-                    print('Resetting number of instances to 1')
-        time.sleep(scale_window)
+                if topic_traffic_diff > TRAFFIC_INCREASE_THRESHOLD: # we see a surge of traffic above threshold ...
+                    instance_multiplier = int(topic_traffic_diff / SCALE_FACTOR) # ... increase number of instances
+                    c.scale_app('elsa', current_instance_num * instance_multiplier)
+                    print('Increasing number of instances to %d' %(current_instance_num * instance_multiplier))
+                elif topic_traffic_diff < 0: # negative, back off exponentially 
+                    target_instance_num = int(current_instance_num/2)
+                    if target_instance_num > 1:
+                        c.scale_app('elsa', target_instance_num)
+                        print('Decreasing number of instances to %d' %(target_instance_num))
+                    else:
+                        c.scale_app('elsa', 1)
+                        print('Resetting number of instances to 1')
+            time.sleep(scale_window)
+    except KeyboardInterrupt:
+        print('ElSA has been stopped by user, halting app and rolling back deployment. Thanks and bye!')
+        c.delete_app('elsa', force=True)
 
 ################################################################################
 # Main script
