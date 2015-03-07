@@ -1,5 +1,8 @@
 package spark.elsa
 
+import java.nio.file.{Paths, Files}
+import java.nio.charset.StandardCharsets
+
 import org.apache.spark.SparkConf
 import org.apache.spark.streaming.{Seconds, StreamingContext}
 import org.apache.spark.streaming.twitter._
@@ -11,12 +14,14 @@ object OnlineSA {
   def runAnalysis(elsaConf: Configuration): Unit = {
     // setting up the Spark configuration:
     val conf = new SparkConf().setAppName("ElSA Online").setMaster(elsaConf[String]("master"))
-    // setting up topics:
+    // setting up the filename where to log the stats to:
+    val stats = elsaConf[String]("stats-file")
+    // setting up list of topics to be monitored by ElSA:
     val topics: Array[String] = elsaConf[String]("topics").split(",").distinct
-    // setting up the streaming context:
+    // setting up the Spark Streaming context:
     val ssc = new StreamingContext(conf, Seconds(elsaConf[Int]("batch-window")))
 
-    // setting up system properties so that Twitter4j library can use them to generate OAuth credentials:
+    // setting up system properties for Twitter4j lib OAuth credentials:
     System.setProperty("twitter4j.oauth.consumerKey", elsaConf[String]("consumer-key"))
     System.setProperty("twitter4j.oauth.consumerSecret", elsaConf[String]("consumer-secret"))
     System.setProperty("twitter4j.oauth.accessToken", elsaConf[String]("access-token"))
@@ -26,8 +31,9 @@ object OnlineSA {
     val twitterFirehose = TwitterUtils.createStream(ssc, None, topics)
 
     twitterFirehose.foreachRDD(rdd => {
+      val tweetCount = rdd.count()
       println("\n\nIn the past " + elsaConf[Int]("batch-window")  + " seconds " +
-              "I found " + rdd.count() + " tweet(s) " +
+              "I found " + tweetCount + " tweet(s) " +
               "containing your topics: "
       )
       for (topic <- topics) print(topic + " ")
@@ -36,6 +42,8 @@ object OnlineSA {
         println(tweet.getText)
         println("===")
       }
+      // write out the stats:
+      Files.write(Paths.get(stats), tweetCount.toString.getBytes(StandardCharsets.UTF_8))
     })
 
     //    val tweets = twitterFirehose.flatMap(status => status.getText.split(" "))

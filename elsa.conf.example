@@ -1,6 +1,7 @@
 deployment          = "production"
 master              = "local[*]"
 checkpoint-dir      = "file:///tmp/elsa/checkpoints"
+stats-file          = "/tmp/elsa/stats"
 batch-window        = 5
 topics              = "Datacenter,DCOS,Docker,Mesos,Mesosphere,devop,microservice"
 consumer-key        = "YOUR STUFF HERE"
