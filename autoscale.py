@@ -99,7 +99,7 @@ def launch_elsa(marathon, stats_file):
                 target_instance_num = int(current_instance_num/2)
                 if target_instance_num > 1:
                     c.scale_app('elsa', target_instance_num)
-                else
+                else:
                     c.scale_app('elsa', 1)
             
         time.sleep(6) # TBD: read 'batch-window' from conf and make slightly higher, hard coded for now
