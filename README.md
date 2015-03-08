@@ -1,14 +1,14 @@
-# Elastic Sentiment Analysis
+# Elastic Sentiment Analysis (ElSA)
 
-|                  | ElSA                                                       |
-| ---------------- | --------------------------------------------------------- |
-| ![https://www.flickr.com/photos/tsevis/8596935889/](doc/sa-logo.jpg) | The Elastic Sentiment Analysis (ElSA) is a simple Spark Streaming-based application that leverages the Mesos stack (esp. Marathon) to derive a public opinion on specified Twitter topics. ElSA is able to elastically scale its processing capacity, based on the volume of the topics' traffic. |
+The *Elastic Sentiment Analysis* (ElSA) is a  Spark Streaming-based application written for the DCOS. It derives public opinions/sentiments on specified Twitter topics and is able to elastically scale its processing capacity, based on the volume of the topics' traffic, leveraging Apache Mesos and Marathon.
 
-ElSA achieves its goal in the following way:
+ElSA works as follows:
 
 * It takes a list of words (called topics in the following), such as *Mesos*, *Docker*, *DCOS*, etc., as input and—using the Twitter firehose—pulls tweets containing these topics for processing.
 * Based on the tweet content it performs a simple sentiment analysis in an ongoing fashion. This operation is implemented via [Spark Streaming](https://spark.apache.org/docs/latest/streaming-programming-guide.html).
 * Last but not least, based on the activity in a certain topic the app scales elastically through leveraging the [Marathon REST API](https://mesosphere.github.io/marathon/docs/rest-api.html). This means that if, for example, a rapid increase of mentions of the topic *DCOS* is detected (tweets per time unit), then more instances are launched.
+
+See below for the architecture and data flow as well as [deployment](#deployment) and [usage](#usage) instructions.
 
 ## Architecture
 
