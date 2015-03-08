@@ -10,17 +10,22 @@ ElSA achieves its goal in the following way:
 * Based on the tweet content it performs a simple sentiment analysis in an ongoing fashion. This operation is implemented via [Spark Streaming](https://spark.apache.org/docs/latest/streaming-programming-guide.html).
 * Last but not least, based on the activity in a certain topic the app scales elastically through leveraging the [Marathon REST API](https://mesosphere.github.io/marathon/docs/rest-api.html). This means that if, for example, a rapid increase of mentions of the topic *DCOS* is detected (tweets per time unit), then more instances are launched.
 
-## Dependencies
+## Architecture
 
-* Deploy instructions are for Ubuntu 14.04 (and only tested there for now)
+| components                            | flow                 |
+| ------------------------------------- | -------------------- |
+| ![Architecture](doc/architecture.png) |![Flow](doc/flow.png) |
+
+Description TBD.
+
+## Deployment
+
+In the following, an Ubuntu 14.04 environment is assumed and in addition, ElSA depends on:
+
 * Apache [Mesos 0.21.x](http://archive.apache.org/dist/mesos/0.21.0/) with [Marathon 0.7.6](https://github.com/mesosphere/marathon/releases/tag/v0.7.6)
 * [marathon-python](https://github.com/thefactory/marathon-python)
 * Apache [Spark 1.2.x](https://spark.apache.org/downloads.html)
 * A Twitter account and an [app](https://apps.twitter.com/) that can be used for accessing the Twitter firehose
-
-## Deployment
-
-In the following, an Ubuntu 14.04 environment is assumed.
 
 ### Prerequisites 
 
