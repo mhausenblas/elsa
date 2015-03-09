@@ -94,7 +94,9 @@ Then, finally, we're ready to launch Spark:
     $ cd elsa
     $ mvn clean package
 
-### ElSA to go: Vagrant deployment 
+### ElSA to-go: Vagrant deployment 
+
+ElSA to-go is based on [Playa Mesos](https://github.com/mesosphere/playa-mesos); see details in [deployment/to-go](deployment/to-go) …
 
 ### Google Compute deployment
 
