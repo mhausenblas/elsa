@@ -35,7 +35,6 @@ For Python packages we need `pip` so before anything else do:
 
 ### Single node
 
-
 **Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) which contains an Marathon installation or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site and install Marathon on top of it.
 
 Further, as a preparation for the ElSA app, we need a [Python package](https://github.com/thefactory/marathon-python) wrapping the Marathon [REST API](https://mesosphere.github.io/marathon/docs/rest-api.html) so let's do that right away:
@@ -109,6 +108,11 @@ Assuming you've installed Mesos, Marathon and Spark as described above, you shou
 
 Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating a Twitter application and generating the access token via the [app](https://apps.twitter.com/) interface.
 
+Before you start, you might want to quickly check out this 3min walkthrough of ElSA op:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=WfV2Qk-Xy5g" target="_blank"><img src="http://img.youtube.com/vi/WfV2Qk-Xy5g/0.jpg" alt="ElSA op video walkthrough on YouTUb" width="480" height="360" border="0" /></a>
+
+
 ### Launching ElSA manually
 
 To launch ElSA manually (without elasticity, directly on Mesos), do the following:
@@ -155,7 +159,7 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Make all auto-scale parameter configurable via config
 - [x] Improve SA (positive negative)
 - [x] Architecture and flow description
-- [ ] Video walkthrough
+- [x] Video walkthrough
 - [ ] Cluster deployment (GCE and EC2)
 
 ## Notes
