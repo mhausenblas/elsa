@@ -33,7 +33,7 @@ For Python packages we need `pip` so before anything else do:
 
      $ sudo apt-get install python-pip
 
-### Single node
+### Single node deployment
 
 **Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) which contains an Marathon installation or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site and install Marathon on top of it.
 
@@ -94,11 +94,13 @@ Then, finally, we're ready to launch Spark:
     $ cd elsa
     $ mvn clean package
 
-### Google Compute
+### ElSA to go: Vagrant deployment 
+
+### Google Compute deployment
 
 TBD.
 
-### AWS EC2
+### AWS EC2 deployment
 
 TBD.
 
@@ -158,9 +160,11 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Single node elastic
 - [x] Make all auto-scale parameter configurable via config
 - [x] Improve SA (positive negative)
-- [x] Architecture and flow description
 - [x] Video walkthrough
-- [ ] Cluster deployment (GCE and EC2)
+- [ ] Vagrant file
+- [ ] Architecture and flow explanation
+- [ ] Cluster deployment GCE
+- [ ] Cluster deployment EC2
 
 ## Notes
 
