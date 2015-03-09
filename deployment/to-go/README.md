@@ -11,6 +11,8 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
 
 ## Quick Start
 
+Preparation:
+
 1. [Install VirtualBox](https://www.virtualbox.org/wiki/Downloads)
 
 1. [Install Vagrant](http://www.vagrantup.com/downloads.html)
@@ -21,7 +23,6 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
   git clone https://github.com/mhausenblas/elsa.git
   cd elsa/deployment/to-go
   ```
-
 1. Start the VM
 
   ```bash
@@ -38,12 +39,9 @@ VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https:
   exit
   ```
   
-At this point in time you can [launch ElSA via the autoscale](https://github.com/mhausenblas/elsa#launching-elsa-through-marathon) script.
+At this point in time you can [launch ElSA via the autoscale](https://github.com/mhausenblas/elsa#launching-elsa-through-marathon) script. 
 
-
-1. Stop the VM
-
-To shut down the VM:
+Once you're done experimenting, you can shut down the VM like so:
 
   ```bash
   vagrant halt
@@ -55,9 +53,7 @@ To shut down the VM:
   vagrant suspend
   ```
 
-1. Destroy the VM
-
-When you're done and want to get rid of the VM:
+When you want to get rid of the VM, do the following:
 
   ```bash
   vagrant destroy
