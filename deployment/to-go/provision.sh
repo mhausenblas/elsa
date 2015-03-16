@@ -92,7 +92,7 @@ wget http://d3kbcqa49mib13.cloudfront.net/spark-1.2.0.tgz
 tar xzf spark-1.2.0.tgz && cd spark-1.2.0/
 
 # Build Spark using Maven
-mvn -DskipTests clean package
+sudo mvn -DskipTests clean package
 ./make-distribution.sh
 mv dist spark-1.2.0
 tar czf spark-1.2.0.tgz spark-1.2.0/

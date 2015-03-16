@@ -27,13 +27,34 @@ In the following, an Ubuntu 14.04 environment is assumed and in addition, ElSA d
 * Apache [Spark 1.2.x](https://spark.apache.org/downloads.html)
 * A Twitter account and an [app](https://apps.twitter.com/) that can be used for accessing the Twitter firehose
 
-### Prerequisites 
+### ElSA to-go: Vagrant deployment 
+
+**ElSA to-go** is a single-node Vagrant deployment based on the ingenious [Playa Mesos](https://github.com/mesosphere/playa-mesos). See details in [deployment/to-go](deployment/to-go) …
+
+
+### ElSA Docker
+
+
+### Digital Ocean deployment
+
+IaaS deployment on [DO](https://cloud.digitalocean.com/)
+
+### Google Compute deployment
+
+IaaS deployment on [GCE](https://cloud.google.com/)
+
+### AWS EC2 deployment
+
+IaaS deployment on [EC2](https://console.aws.amazon.com/)
+
+
+### Manual single node deployment
 
 For Python packages we need `pip` so before anything else do:
 
      $ sudo apt-get install python-pip
 
-### Single node deployment
+Now we can start with the setup.
 
 **Install Mesos**: simply use [Playa Mesos](https://github.com/mesosphere/playa-mesos) which contains an Marathon installation or follow the [step-by-step instructions](http://mesos.apache.org/gettingstarted/) from the Apache Mesos site and install Marathon on top of it.
 
@@ -64,7 +85,7 @@ Now make sure the correct version of Maven (3.0.4 or higher) is available:
 OK, ready to build Spark. Note: right now is a good time to get a cup of tea or coffee, whatever floats your boat. As usual, Maven is downloading half of the Internet for the following and that might take, um, a while:
 
     $ export MAVEN_OPTS="-Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m"
-    $ mvn -DskipTests clean package
+    $ sudo mvn -DskipTests clean package
 
 So, here we are. Next we package our newly built Spark distribution for the Mesos slaves to use:
 
@@ -94,26 +115,9 @@ Then, finally, we're ready to launch Spark:
     $ cd elsa
     $ mvn clean package
 
-### ElSA to-go: Vagrant deployment 
-
-**ElSA to-go** is a single-node Vagrant deployment based on the ingenious [Playa Mesos](https://github.com/mesosphere/playa-mesos). See details in [deployment/to-go](deployment/to-go) …
-
-### Digital Ocean deployment
-
-IaaS deployment on [DO](https://cloud.digitalocean.com/)
-
-### Google Compute deployment
-
-IaaS deployment on [GCE](https://cloud.google.com/)
-
-### AWS EC2 deployment
-
-IaaS deployment on [EC2](https://console.aws.amazon.com/)
-
-
 ## Usage
 
-Assuming you've installed Mesos, Marathon and Spark as described above, you should now be in the position to launch ElSA as described below.
+Assuming you've installed ElSA using one of the options above, you should now be in the position to launch it as described below.
 
 Note: in order for ElSA to run you'll need to supply your Twitter credentials, that is, you `cp elsa.conf.example elsa.conf` and replace the `YOUR STUFF HERE` sections with the details you obtain from creating a Twitter application and generating the access token via the [app](https://apps.twitter.com/) interface.
 
