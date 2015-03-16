@@ -58,12 +58,13 @@ echo "deb http://repos.mesosphere.io/${DISTRO} ${CODENAME} main" | \
   sudo tee /etc/apt/sources.list.d/mesosphere.list
 sudo apt-get -y update
 
-# Install Mesos 0.21.0
-sudo apt-get -y install mesos
+# Install Mesos 0.21.0 -- not needed as already done via Playa
+#sudo apt-get -y install mesos
 
-# Install Marathon 0.7.6 and marathon-python
-sudo apt-get -y install marathon
+# Install Marathon 0.7.6  -- not needed as already done via Playa 
+#sudo apt-get -y install marathon
 
+# Install marathon-python
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python get-pip.py
 pip install marathon

@@ -96,15 +96,20 @@ Then, finally, we're ready to launch Spark:
 
 ### ElSA to-go: Vagrant deployment 
 
-ElSA to-go is based on [Playa Mesos](https://github.com/mesosphere/playa-mesos); see details in [deployment/to-go](deployment/to-go) …
+**ElSA to-go** is a single-node Vagrant deployment based on the ingenious [Playa Mesos](https://github.com/mesosphere/playa-mesos). See details in [deployment/to-go](deployment/to-go) …
+
+### Digital Ocean deployment
+
+IaaS deployment on [DO](https://cloud.digitalocean.com/)
 
 ### Google Compute deployment
 
-TBD.
+IaaS deployment on [GCE](https://cloud.google.com/)
 
 ### AWS EC2 deployment
 
-TBD.
+IaaS deployment on [EC2](https://console.aws.amazon.com/)
+
 
 ## Usage
 
@@ -163,10 +168,11 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Make all auto-scale parameter configurable via config
 - [x] Improve SA (positive negative)
 - [x] Video walkthrough
-- [ ] Vagrant file
-- [ ] Architecture and flow explanation
+- [x] Vagrant file
+- [ ] Cluster deployment DO
 - [ ] Cluster deployment GCE
 - [ ] Cluster deployment EC2
+- [ ] Architecture and flow explanation
 
 ## Notes
 
