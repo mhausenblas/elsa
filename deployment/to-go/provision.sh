@@ -59,10 +59,10 @@ echo "deb http://repos.mesosphere.io/${DISTRO} ${CODENAME} main" | \
 sudo apt-get -y update
 
 # Install Mesos 0.21.0
-sudo apt-get -y install mesos=0.21.0
+sudo apt-get -y install mesos
 
 # Install Marathon 0.7.6 and marathon-python
-sudo apt-get -y install marathon=0.7.6
+sudo apt-get -y install marathon
 
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python get-pip.py
