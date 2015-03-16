@@ -68,6 +68,7 @@ sudo apt-get -y update
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 python get-pip.py
 pip install marathon
+rm -f get-pip.py
 
 # Install and configure JDK (for Spark and ElSA)
 sudo apt-get -y install default-jdk
@@ -101,6 +102,8 @@ cd conf/
 cp spark-env.sh.template spark-env.sh
 echo $SPARK_CONF_TEMPLATE >> spark-env.sh
 
+cd $BASE_INSTALL
+rm -f spark-1.2.0.tgz
 
 ###############################################################################
 # Building ElSA
