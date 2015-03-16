@@ -42,7 +42,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Provision the ElSA app
   config.vm.provision :shell do |shell|
-    shell.path = 'provision_elsa.sh'
+    shell.path = 'provision.sh'
   end
 
 end

@@ -1,3 +1,7 @@
+# Vagrant
+.vagrant
+
+
 *.conf
 *.class
 *.log

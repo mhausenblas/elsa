@@ -1,13 +1,11 @@
-# ElSA to-go: Playa Mesos-based Vagrant deployment
+# ElSA to-go
 
-ElSA to-go is derived from [Playa Mesos][5] which in turn relies on [VirtualBox][3], [Vagrant][4], and an Ubuntu box image which has [Mesos][1] and [Marathon][2] pre-installed. As an alternative to VirtualBox, it's possible to build and run the image on
-VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https://www.vmware.com/products/workstation/).
+ElSA to-go is derived from [Playa Mesos][1] which in turn relies on [VirtualBox][2] and [Vagrant][3], and an Ubuntu box image.
 
-## Requirements
+## Prerequisites
 
-* [VirtualBox][3] 4.2+
-* [Vagrant][4] 1.3+
-* VMware [Fusion](https://www.vmware.com/products/fusion/) or [Workstation](https://www.vmware.com/products/workstation/) (optional)
+* [VirtualBox][2] 4.2+
+* [Vagrant][3] 1.3+
 
 ## Quick Start
 
@@ -70,8 +68,6 @@ Kudos to the original [Playa Mesos][5] authors:
 VMware Support: [Fabio Rapposelli](https://github.com/frapposelli) ([@fabiorapposelli](https://twitter.com/fabiorapposelli))
 
 
-[1]: http://incubator.apache.org/mesos/ "Apache Mesos"
-[2]: http://github.com/mesosphere/marathon "Marathon"
-[3]: http://www.virtualbox.org/ "VirtualBox"
-[4]: http://www.vagrantup.com/ "Vagrant"
-[5]: https://github.com/mesosphere/playa-mesos "Playa Mesos"
+[1]: https://github.com/mesosphere/playa-mesos "Playa Mesos"
+[2]: http://www.virtualbox.org/ "VirtualBox"
+[3]: http://www.vagrantup.com/ "Vagrant"

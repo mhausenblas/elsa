@@ -63,7 +63,9 @@ sudo apt-get -y install mesos=0.21.0
 
 # Install Marathon 0.7.6 and marathon-python
 sudo apt-get -y install marathon=0.7.6
-sudo apt-get -y install python-pip
+
+wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
+python get-pip.py
 pip install marathon
 
 # Install and configure JDK (for Spark and ElSA)
