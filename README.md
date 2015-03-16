@@ -169,6 +169,7 @@ You should then see something like the following in [Marathon](http://10.141.141
 - [x] Improve SA (positive negative)
 - [x] Video walkthrough
 - [x] Vagrant file
+- [ ] Docker image
 - [ ] Cluster deployment DO
 - [ ] Cluster deployment GCE
 - [ ] Cluster deployment EC2
