@@ -60,13 +60,10 @@ When you want to get rid of the VM, do the following:
 
 ## Kudos
 
-Kudos to the original [Playa Mesos][5] authors:
+Kudos to the original [Playa Mesos][1] authors:
  
 * [Jeremy Lingmann](https://github.com/lingmann) ([@lingmann](https://twitter.com/lingmann))
 * [Jason Dusek](https://github.com/solidsnack) ([@solidsnack](https://twitter.com/solidsnack))
-
-VMware Support: [Fabio Rapposelli](https://github.com/frapposelli) ([@fabiorapposelli](https://twitter.com/fabiorapposelli))
-
 
 [1]: https://github.com/mesosphere/playa-mesos "Playa Mesos"
 [2]: http://www.virtualbox.org/ "VirtualBox"
